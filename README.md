@@ -1,4 +1,4 @@
-# GoldenMorningStore
+# Our Beautiful E-Commerce Store
 ```
 HTML5/CSS3
 MaterializeCSS
@@ -12,4 +12,4 @@ Amazon Simple Storage Service (S3)
 Passport
 SendGrid
 ```
-Goldmorning Shop is a fully-functioning e-commerce site set up by five students from DevMountain's Web Development Immersive program. With contributions from Robert Hallowell, Andy Johnson, Alicia Chen, Peter Griesmer, and Tyler Tebbs (with direction from mentor Page Garner), the project was commissioned by Beulah Ekkelenkamp and will ultimately operate alongside her style blog by the same name. 
+We created a beautiful, responsive, feature rich mock e-commerce site using the MEAN stack integrated with PayPal payment systems, amazon S3, and SendGrid.  The public views allow customers to sort products by categories, add items to a custom built cart and request items that are temporarily unavailable.  The admin side, built off a login secured API, allows the site owner to upload new products, manage existing ones, and contact customers who are wait listed for products.   Upon checkout, customers receive a confirmation 'thank you' email and the purchased products are automatically deducted from the inventory.
