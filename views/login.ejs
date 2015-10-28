@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello Beulah</title>
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Palanquin:400,100,200,300|Ek+Mukta:400,300,200|Raleway:400,300,600,500|Poppins:400,500,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arimo|Hind:400,300,500|Pontano+Sans' rel='stylesheet' type='text/css'>
+	<link type="text/css" rel="stylesheet" href="../public/css/materialize.css" media="screen,projection">
+	<link href="bower_components/angular-carousel/dist/angular-carousel.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../public/css/animate.css">
+	
+	
+</head>
+<body>
+	<div class="admin">
+		<div class="container" id="adminLogin">
+			<h1 class="rh-admin-header">Admin Secure Login</h1><br>
+
+				<% if (message.length > 0){ %>
+					<div class="login-error-message"><%= message %></div>
+				<% } %>
+
+			
+				<form action="/api/login" method="post" class="col s12" id="loginForm">
+					<div class="row">
+							<div class="rh-admin-input-wrapper">
+								<input class="rh-admin-input" type="email" name="email" class="validate">
+								<label for="email">EMAIL</label>
+							</div>
+					 </div>
+					<div class="row">
+								<div class="rh-admin-input-wrapper">
+									<input class="rh-admin-input" type="password" name="password" class="validate">
+									<label for="password">PASSWORD</label>
+							</div>
+					</div>
+					<button type="submit">LOGIN</button>
+				</form>
+				
+			 <hr>
+			 
+		</div>
+	</div>	
+	<script type="text/javascript" src="bower_components/angular-materialize/src/angular-materialize.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

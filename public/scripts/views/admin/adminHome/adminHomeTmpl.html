@@ -1,0 +1,186 @@
+<script src="js/init.js"></script>
+
+
+<div id="adminHero">
+		<div class="headline-main">
+			<h1 id="hello" class="animated fadeInUp">Hello, Friendly Store Owner!</h1>
+      <div scroll-to="adminNav" duration="1800">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+		</div>
+	</div>
+
+<!-- NAVBAR START -->
+<nav class="adminNav">
+     <div id= "adminNav" class="nav-wrapper">
+       <a href="#/admin/home" class="brand-logo"><img src="images/tinyPalm.png"></a>
+       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color: black">list</i></a>
+       <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a ng-href="#/admin/product/"><i class="fa fa-plus"></i></a></li>
+
+<!-- DROPDOWN TRIGGER -->
+          <li><a class="dropdown-button" data-activates='dropdown1'>FILTER BY</a></li>
+
+<!-- DROPDOWN STRUCTURE -->
+          <ul id='dropdown1' class='dropdown-content'>
+			  <li><a ng-click="productFilter = ''">ALL</a></li>
+	          <li><a ng-click="productFilter = {productCategory: 'Dresses'}">DRESSES</a></li>
+	          <li><a ng-click="productFilter = {productCategory: 'Tops'}">TOPS</a></li>
+	          <li><a ng-click="productFilter = {productCategory: 'Bottoms'}">BOTTOMS</a></li>
+	          <li><a ng-click="productFilter = {productCategory: 'Rompers'}">ROMPERS</a></li>
+	          <li><a ng-click="productFilter = {productCategory: 'Accessories'}">ACCESSORIES</a></li>
+	          <li><a ng-click="productFilter = {productCategory: 'Soaps/Scrubs'}">BODY</a></li>
+		  </ul>
+
+<!-- END DROPDOWN STRUCTURE -->
+        
+        <li><a ng-href="#/admin/orders/">ORDERS</a></li>
+        <li><a ng-href="#/">USER VIEW</a></li>  
+				<li><a href="/api/logout">LOGOUT</a></li>    
+
+<!-- UNCOMMENT AS MORE NAVS ARE NEEDED -->
+
+      <!--     <li><a ng-click="productFilter = {productCategory: 'Bottoms'}">BOTTOMS</a></li>
+          <li><a ng-click="productFilter = {productCategory: 'Rompers'}">ROMPERS</a></li>
+          <li><a ng-click="productFilter = {productCategory: 'Accessories'}">ACCESSORIES</a></li>
+          <li><a ng-click="productFilter = {productCategory: 'Soaps/Scrubs'}">BODY</a></li> -->
+		<!-- <li><a cart-modal><i class="material-icons">shopping_basket</i></a></li> -->
+       
+      </ul>
+
+
+<!--   NAVBAR COLLAPSE FOR MOBILE -->
+
+       <ul class="side-nav" id="mobile-demo">
+        <li><a ng-href="#/admin/orders/">ORDERS</a></li>
+        <li><a ng-href="#/">USERS</a></li>
+				<li><a ng-href="#/admin/product/">ADD PRODUCT</a></li>
+      </ul>
+    </div>
+</nav> 
+
+<!-- END NAVBAR -->
+
+
+<!-- Product Grid -->
+
+<div class="wrapper">
+	<div id="products" class="row">
+		<div ng-repeat="product in products | orderBy: 'dateCreated': true | filter: productFilter">
+			<ul class="grid size-style">
+				<li id="adminProducts" class="col s12 m6 l4" ng-repeat="colorSize in product.colorSize">
+					<figure class="adminFigure">
+							<img ng-src="{{ colorSize.mainImg }}">
+						<figcaption>
+							<a ng-href="/#/admin/product/{{product._id}}">
+								<span class="adminEditBtn">EDIT ITEM</span>
+							</a>			
+						</figcaption>
+					</figure>
+					
+					<a class="btn-flat" ng-href="#/admin/product/{{product._id}}">
+							<h5>{{product.productTitle}}</h5>
+					</a>
+
+					<p>DETAILS: {{product.productDescription}}<br>
+					CATEGORY: {{product.productCategory}}<br>
+					COLOR: {{colorSize.color}}</p>
+
+					<p>S: {{colorSize.smallQty}} | M: {{colorSize.mediumQty}} | L: {{colorSize.largeQty}}
+					<br>
+					<span ng-show="onWait(colorSize.wantList.length)" id="numberWait">{{ colorSize.wantList.length }}</span>
+					<span class="showWait" ng-show="onWait(colorSize.wantList.length)" ng-href="#waitList" ng-click="passInEmail(product)" modal>ON WANTLIST</span>
+					</p>
+
+					<!-- WAITLIST MODAL -->
+
+					<div class="modal" id="waitList">
+						<h4>WANTLISTED FOR {{ WL.productTitle }}</h4><br>
+						<table class="centered responsive-table">
+					       <thead>
+					        <tr>
+					         <th data-field="id">EMAIL</th>
+					        </tr>
+					       </thead>
+
+					       <tbody ng-repeat="name in emails">
+					       <tr ng-repeat="email in name.wantList track by $index">
+					         <td>{{ email }} </td>
+					       </tr>
+					       <tr>
+					         <td>
+		     					<span class="admin-delete-product" ng-click="showDeleteWaitlist()" >DELETE WANTLIST</span>
+					     			
+					     		<div ng-show="confirmDeleteWaitlist">are you sure you want to delete all emails from the wantlist?  you won't be able to get them back.
+					      			<div>
+					      				<span class="modal-close admin-delete-button" ng-click="removeEmail(name._id, WL._id)" onClick="$('#waitList').closeModal()">YES, DELETE</span>
+					      				<span class="admin-cancel-delete-button" ng-click="cancelDeleteWaitlist()" onClick="$('#waitList').closeModal()">NO THANKS</span>
+					      			</div>
+					      		</div>
+					      	</td>
+					      </tr>
+					      </tbody>
+				      	</table>
+					</div>
+					
+					<p class="admin-delete-product" ng-click="showConfirmDelete(product._id)">DELETE</p>
+					
+<!--						<div modal class="modal" id="deleteProductModal">-->
+					<p class="confirm" ng-show="confirmDelete && (product._id === confirmId)">are you sure you want to delete {{product.productTitle}}?</p>
+					
+					<div class="admin-delete-button" 
+					ng-click="deleteProduct(product._id)" 
+					ng-show="confirmDelete && (product._id === confirmId)">
+
+					YES, DELETE THIS ITEM AND ALL COLORS
+					</div>
+
+					<div class="admin-cancel-delete-button" 
+					ng-click="hideConfirmDelete(product._id)" 
+					ng-show="confirmDelete && (product._id === confirmId)">
+					
+					NEVERMIND
+					</div>
+<!--					</div>		-->
+							
+					<p class="product-price">${{ product.price }}</p>
+
+				</li>
+			</ul>
+		</div>	
+	</div>
+</div>
+
+	
+
+
+
+		<!--REMOVE INLINE STYLING -- USED ONLY FOR READABILITY RIGHT NOW-->
+		
+			<!--OLD CODE - KEPT FOR REFERENCE -RH-->
+			
+	<!--
+<div ng-repeat="product in products">
+	<div>item: {{product.productTitle}}</div>
+	<div>description: {{product.productDescription}}</div>
+	<div>category: {{product.productCategory}}</div>
+	
+	<a class="waves-effect waves-light modal-trigger" ng-href="#/admin/product/{{product._id}}">
+	<img width="300px" height="300px" ng-src="{{product.image}}" alt="PLEASE UPLOAD A PICTURE"/>
+	</a>
+	
+	<div>price: ${{product.price}}</div>
+	<div ng-repeat="size in product.colorSize">
+		<div>color: {{size.color}}</div>
+		<div style="font-size: 1.4rem; font-weight:bold">Sizes</div>
+			<button ng-click="toggleShowEditSizes()">edit sizes</button>
+		<div>small: {{size.smallQty}}</div>
+		<input type="text" ng-show="showEditSizes" ng-model="size.smallQty">
+
+		<div>medium: {{size.mediumQty}}</div>
+		<div>large: {{size.largeQty}}</div>
+	</div>  
+		<i class="fa fa-times" ng-show="showEditSizes" ng-click="updateSmallQty(size._id, 	size.smallQty)"></i>
+	<br><br>
+</div>
+ -->	

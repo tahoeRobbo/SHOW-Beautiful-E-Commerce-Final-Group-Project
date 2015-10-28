@@ -1,0 +1,137 @@
+<div flow-init="{target: '/api/upload', testChunks:false}"
+     flow-name="uploader.flow"
+     flow-files-added="processFiles($files)"
+     flow-files-submitted="$flow.upload()"
+		 flow-file-success="$file.msg = $message">
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="/#/admin/home" class="brand-logo">Us</a>
+    </div>
+  </nav>
+
+    <div class="container">
+        <div class="addProductArea">
+          <h2 class="right-align animated slideInRight">ADD NEW ITEM</h2><br><br>
+            <div class="addProductTitle" input-field>
+                <h5>ITEM TITLE</h5>
+                <input type="text" class="productTitleInput" placeholder=" name your item" ng-model="product.productTitle" />
+            </div>
+
+            <br>
+            
+            <div class="addProductDescription">
+                <h5>ITEM DESCRIPTION</h5>
+                <textarea class="productDescriptionInput" type="text" ng-model="product.productDescription" placeholder=" enter a description of your item"></textarea>
+            </div>
+
+
+            <br>
+              <h5>ITEM CATEGORY</h5>
+              <form action="#">
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="test1" value="Dresses" ng-model="product.productCategory"/>
+                  <label for="test1">Dresses</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="test2" value="Tops" ng-model="product.productCategory"/>
+                  <label for="test2">Tops</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="test3" value="Bottoms" ng-model="product.productCategory"/>
+                  <label for="test3">Bottoms</label>
+                </p>
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="test4" value="Rompers/Jumpsuits" ng-model="product.productCategory"/>
+                    <label for="test4">Rompers/Jumpsuits</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="test5" value="Accessories" ng-model="product.productCategory"/>
+                  <label for="test5">Accessories</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="test6" value="Soaps/Scrubs" ng-model="product.productCategory"/>
+                  <label for="test6">Soaps/Scrubs</label>
+                </p>
+              </form>
+            
+            <br>
+
+              <span class="btn" flow-btn>UPLOAD PHOTOS</span>
+
+              <div class="row">
+                <div class="col l3 s12" ng-repeat="image in uploader.flow.files">
+                    <h5>{{$index + 1}}</h5><img class="preview" flow-img="image"/><br>
+                </div>
+              </div>
+            <br>
+
+            <table>
+                <colgroup span="4" class="inPutTable"></colgroup>
+                <tr>
+                    <th>COLOR</th>
+                    <th>SMALL</th>
+                    <th>MEDIUM</th>
+                    <th>LARGE</th>
+                    <th>MAIN IMAGE:<th>
+                </tr>
+                <tr ng-repeat="colorSize in product.colorSize">
+                    <td>
+                        <input type="text" ng-model="colorSize.color">
+                    </td>
+                    <td>
+                        <input type="number" ng-model="colorSize.smallQty">
+                    </td>
+                    <td>
+                        <input type="number" ng-model="colorSize.mediumQty">
+                    </td>
+                    <td>
+                        <input type="number" ng-model="colorSize.largeQty">
+                    </td>
+                    <td>
+                        <input type="text" ng-model="colorSize.imageNumber" placeholder=" main image number"></input>
+
+                        <!-- <div class="input-field col s12">
+                            <select ng-model="something">
+                                <option ng-selected="{{image.name == something}}"
+                                        ng-repeat="image in uploader.flow.files"
+                                        value="{{image.name}}">
+                                  {{image.name}}
+                                </option>
+                            </select> -->
+                            <!-- <select ng-model="kk" ng-repeat="image in uploader.flow.files">
+                              <option value="" disabled selected>Choose your option</option>
+                              <option value="{{image.name}}">{{image.name}}</option>
+                            </select>
+                            <label>Materialize Select</label> -->
+                        <!-- </div> -->
+                        <!-- <select ng-model="kk" ng-repeat="image in uploader.flow.files">
+                          <option>{{image.name}}</option>
+                        </select> -->
+                        <!-- <a class='dropdown-button btn' href='#' data-beloworigin="true" data-activates='dropdown1'>Drop Me!</a>
+                      <ul id='dropdown1' class='dropdown-content' ng-repeat="image in uploader.flow.files">
+                        <li><a href="#!">{{image.name}}</a></li>
+                      </ul> -->
+                    </td>
+                    <td><i class="fa fa-times" ng-click="deleteColor(colorSize)"></i></td>
+                </tr>
+            </table>
+            <br>
+            <div class="addcolorButton">
+                <span class="btn" ng-click="addColor()" ng-disabled="disableButton">Add Color</span>
+            </div>
+            <br>
+            <br>
+          <div class="input-field">
+            <h5>ITEM PRICE</h5><br>
+            <span><i class="fa fa-usd"></i></span>
+            <input id="itemPrice" class="priceInput" ng-model="product.price" />
+          </div>
+            <br>
+            <br>
+            <div id="addProductButton" class="center-align">
+                <a class="btn-large waves-effect waves-light" ng-click="addProduct(uploader.flow)" ng-disabled="disableButton" onclick="Materialize.toast('get it girl', 3000, 'rounded')">I'M DONE</a>
+            </div>
+        </div>
+    </div>
+</div>

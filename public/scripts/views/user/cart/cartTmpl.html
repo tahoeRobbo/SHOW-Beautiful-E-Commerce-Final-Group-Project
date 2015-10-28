@@ -1,0 +1,36 @@
+<div class="mobile-shopping-bag-title-container">
+    <div>BAG</div>
+</div>
+<div ng-init="getTotal()" class="mobile-whole-cart">
+  	<div class="mobile-each-product-container" ng-repeat="product in cart">
+      	<div class="mobile-interior-product-container">
+          	<div class="mobile-cart-pic-container">
+            	<img class="mobile-cart-pic" src="{{product.imageUrl}}" />
+          	</div>
+          	<div class="mobile-product-name-and-info-box">
+            	<div class="mobile-product-name">{{product.name}}</div>
+            	<div class="mobile-product-info-box">
+              		<div class="mobile-individual-product-info-box size-container">
+                		<div ng-show="!ifNotClothing(product)" class="mobile-product-category-name">SIZE | {{product.size}}</div>
+                			<div ng-show="ifNotClothing(product)" class="mobile-product-category-name">SIZE | ONE SIZE </div>
+              			</div>
+              			<div class="mobile-individual-product-info-box color-container">
+                			<div class="mobile-product-category-name">COLOR | {{product.color}}</div>
+              			</div>
+              			<div class="mobile-individual-product-info-box price-container">
+                			<div class="mobile-product-category-name">PRICE | ${{product.price}}</div>
+              			</div>
+            		</div>
+          		</div>
+	          	<div class="mobile-individual-product-info-box mobile-remove-box">
+	          		<div class="mobile-remove-product" ng-click="removeProductFromCart(product.refId)">
+	            		<div>X</div>
+	        		</div>
+	    		</div>
+    		</div>
+		</div>
+	</div>  
+<div class="mobile-cart-total">
+    <div class="mobile-total-price"><h5>TOTAL: ${{total}}</h5></div>
+    <a ng-href="/#/checkout" class="mobile-checkout-button">CHECKOUT</a>
+</div>

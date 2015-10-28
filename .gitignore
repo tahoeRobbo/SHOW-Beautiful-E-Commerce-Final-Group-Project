@@ -25,3 +25,14 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+bower_components
+public/bower_components
+
+#Misc Files 
+.DS_Store
+../.DS_Store
+../../.DS_Store
+
+keys.js
+config.json
+bower_components

@@ -1,0 +1,49 @@
+{
+  "name": "golden-morning-store",
+  "version": "1.0.0",
+  "description": "our group ecommerce site for gold morning store",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoldenMorningStore/GoldenMorningStore.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "mean"
+  ],
+  "author": "alicia chen, peter griesmer, robert hallowell, andy johnson, tyler tebbs - thanks to page garner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GoldenMorningStore/GoldenMorningStore/issues"
+  },
+  "homepage": "https://github.com/GoldenMorningStore/GoldenMorningStore#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1.40",
+    "bcrypt": "^0.8.4",
+    "bcryptjs": "^2.2.0",
+    "body-parser": "^1.13.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^0.8.2",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.3.5",
+    "cors": "^2.7.1",
+    "ejs": "^2.3.3",
+    "express": "^4.13.1",
+    "express-session": "^1.11.3",
+    "flash": "^1.1.0",
+    "fs": "0.0.2",
+    "mongoose": "^4.1.0",
+    "morgan": "^1.6.1",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
+    "paypal-rest-sdk": "^1.6.0",
+    "sendgrid": "^1.9.2"
+  },
+  "devDependencies": {
+    "gulp-image-resize": "^0.6.0"
+  }
+}

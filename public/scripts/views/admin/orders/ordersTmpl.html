@@ -1,0 +1,105 @@
+
+<h3 class="goHome left-align animated fadeIn"><a href="/#/admin/home">Us</a></h3>
+
+<div class="container">
+
+<div class="mainOrders">
+<h2 class="right-align animated slideInRight">ORDERS</h2><br><br>
+	<div class="row">
+		<div class="input-field col s4 offset-s4">
+			<input type="text" ng-model="search.$" placeholder=" SEARCH BY order id or email"/>
+		</div>
+		<div class="input-field col s3">
+			<select class="browser-default" ng-model="search.status" ng-options="option for option in orderStatusOptions"><option value=""disabled selected>SORT BY order status</option></select> 
+		</div>
+	</div>
+
+	<div class="orderView">
+		<ul class="collapsible popout" data-collapsible="accordion" watch>
+		    <li ng-repeat="order in orders | filter:search | orderBy: 'timePlaced': true">
+		      
+		      <div class="collapsible-header" id="orderHeader">
+		       <p><i class="fa fa-angle-double-right"></i>
+		       	ORDER ID# : <strong>{{order._id}}</strong>
+		   		 | STATUS : <strong>{{order.status}}</strong>
+		       </p>
+		      </div>
+		       
+		     <div class="container collapsible-body" id="orderDetails">
+
+			      <div class="row">
+			       	<div class="col s3">
+							<h5 class="center-align">ORDER STATUS:</h5>
+						</div>
+						<div class="col s3">
+							<select class="browser-default" ng-model="order.status" material-select watch>
+						    	<option ng-repeat="status in orderStatusOptions">{{status}}</option>
+							</select>
+						</div>
+						<div class="col s3 offset-s3">
+							<h6>DATE ORDERED:</h6>{{ order.timePlaced | date:'MMM d, y h:mm a'}}
+						</div>
+					</div>
+
+					<div class="row">	
+						<div class="col s5">	
+							<h5>ORDER DETAILS:</h5>
+								<div class="moreInfoBox" ng-repeat="product in order.products">
+									<div class="oneInfoBox">
+											<img class="thumbnail" src="{{product.imageUrl}}" />
+					            	<span>ITEM NAME:</span> {{product.product.productTitle}}
+										<br>
+					            	<span>SIZE:</span> {{product.size}}
+					            	<br>
+					            	<span>COLOR:</span> {{product.color}}
+					            </div>
+
+						    	</div>
+					   </div>
+				      <div class="col s6">
+					      <h5>BUYER DETAILS:</h5>
+					       <div class="purchaseInfoContainer" ng-repeat="customer in order.customer">
+					    		BUYER NAME: {{customer.name.first}} {{customer.name.last}}
+					        	<br>
+					        	SHIPPING ADDRESS: {{customer.shippingAddress.street}}, {{customer.shippingAddress.city}}, {{customer.shippingAddress.state}},  {{customer.shippingAddress.zip}}
+					        	<br>
+					        	EMAIL: {{customer.email}}
+					      </div>
+					   </div>
+
+
+
+					</div>
+			
+
+					<div class="row">
+						<div class="col s8">
+							<h5>NOTES</h5>             
+								<textarea class="productDescriptionInput" type="text" ng-model="order.note" placeholder=" special requests, reminders, etc"></textarea>
+						</div>
+					</div>
+
+
+				
+
+				<div class="orderDetailTotal">
+					<h5>ORDER TOTAL: {{order.total}}</h5>
+				</div>
+				
+				<br>
+				
+				<!-- add update button here -->
+				<div id="updateOrder" class="center-align">
+			   		<a class="btn waves-effect waves-light" ng-click="updateOrder(order._id, order.note, order.status)" ng-disabled="disableButton">UPDATE ORDER</a>
+			   </div>
+
+
+			</div>
+
+		        <!-- End update button -->
+		 </li>
+		</ul>
+	</div>
+
+</div>
+</div>

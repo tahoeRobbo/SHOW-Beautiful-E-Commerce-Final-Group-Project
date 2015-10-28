@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="GroupStore">
+<head>
+	<!--Let's optimize for mobile! -->
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+
+	<!-- Materialize CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Palanquin:400,100,200,300|Ek+Mukta:400,300,200|Raleway:400,300,600,500|Poppins:400,500,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arimo|Hind:400,300,500|Pontano+Sans' rel='stylesheet' type='text/css'>
+	<link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection">
+	<link type="text/css" rel="stylesheet" href="css/styles.css">
+
+  <link href="bower_components/angular-carousel/dist/angular-carousel.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" href="css/animate.css">
+
+	<title>Beautiful E-Commerce Site</title>
+</head>
+
+<body>
+
+	<!--SHOW ANGULAR VIEWS-->
+	<div ng-view></div>
+	
+	
+
+	<!-- Materialize Scripts -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	
+
+	<!--ANGULAR SCRIPTS-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+	<script src="https://code.angularjs.org/1.3.16/angular-route.js"></script>
+	<script type="text/javascript" src="bower_components/angular-materialize/src/angular-materialize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
+  <script src="bower_components/ngSmoothScroll/angular-smooth-scroll.js"></script>
+
+	
+	<!--SITE SPECIFIC SCRIPTS-->
+	<script src="scripts/app.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-flow/2.6.1/ng-flow-standalone.min.js"></script>
+
+
+		<!-- ADMIN SPECIFIC -->
+	<script src="scripts/views/admin/login/adminLoginCtrl.js"></script>
+
+	<script src="scripts/views/admin/adminHome/adminHomeCtrl.js"></script>
+	<script src="scripts/views/admin/orders/ordersCtrl.js"></script>
+	<script src="scripts/views/admin/product/colorSize.js"></script>
+	<script src="scripts/views/admin/product/product.js"></script>
+	<script src="scripts/views/admin/product/productCtrl.js"></script>
+	<script src="scripts/views/admin/product/updateProductCtrl.js"></script>
+  	
+		<!-- USER SPECIFIC -->
+	<script src="scripts/views/user/cart/cartCtrl.js"></script>
+	<script src="scripts/views/user/checkout/checkoutCtrl.js"></script>
+	<script src="scripts/views/user/checkout/thankyouCtrl.js"></script>
+	<script src="scripts/views/user/home/homeCtrl.js"></script>
+
+  		<!-- SERVICES -->
+
+	<script src="scripts/services/cartService.js"></script>
+	<script src="scripts/services/orderService.js"></script>
+	<script src="scripts/services/ProductService.js"></script>
+	<script src="scripts/services/UserService.js"></script>
+
+
+</body>
+</html>

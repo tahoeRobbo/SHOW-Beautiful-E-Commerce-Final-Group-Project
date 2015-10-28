@@ -1,0 +1,31 @@
+{
+	"productItems":[
+	    {
+	        "productTitle": "Beauty Shirt",
+	        "productDescription": "This is a high class beautiful shirt.",
+	        "productCategory": "Shirts",
+	        "image": "http://blahblah.com",
+	        "color": "Blue",
+	        "size": "Medium",
+	        "price": "35"
+	    },
+		{
+	        "productTitle": "Beauty Pants",
+	        "productDescription": "This is a high class beautiful pair of pants.",
+	        "productCategory": "Shirt",
+	        "image": "http://blahblah.com",
+	        "color": "Red",
+	        "size": "Large",
+	        "price": "39"
+	    },
+	    {
+	        "productTitle": "Beauty Socks",
+	        "productDescription": "This is a high class beautiful pair of socks.",
+	        "productCategory": "Socks",
+	        "image": "http://blahblah.com",
+	        "color": "White",
+	        "size": "Small",
+	        "price": "37"
+	    }
+    ]
+}

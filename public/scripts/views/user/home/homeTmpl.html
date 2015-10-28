@@ -1,0 +1,246 @@
+<script src="js/init.js"></script>
+<!-- Header -->
+<div class="wrapper">
+    <div id="hero">
+        <div class="headline-main">
+            <h1 id="hello" class="animated fadeInUp">Beautiful E-Commerce Shop</h1>
+            <div class="downArrow" scroll-to="nav" duration="1800">
+                <i class="fa fa-chevron-down fa-3x animated fadeInDown"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header -->
+
+<!-- Nav Start -->
+<nav id="nav">
+    <div class="nav-wrapper">
+        <a href="#/home" class="brand-logo"><img src="images/tinyPalm.png"></a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color: #424242">list</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a ng-click="productFilter = ''">ALL</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Dresses'}">DRESSES</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Tops'}">TOPS</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Bottoms'}">BOTTOMS</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Rompers'}">ROMPERS</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Accessories'}">ACCESSORIES</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Soaps/Scrubs'}">SOAPS & SCRUBS</a></li>
+            <li><a cart-modal ng-click="getTotal()"><i class="material-icons bagIcon">shopping_basket</i></a></li>
+        </ul>
+        <!-- Navbar Collapses for Mobile -->
+        <ul class="side-nav" id="mobile-demo">
+            <li><a ng-click="productFilter = {productCategory: 'Dresses'}">DRESSES</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Tops'}">TOPS</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Bottoms'}">BOTTOMS</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Rompers'}">ROMPERS</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Accessories'}">ACCESSORIES</a></li>
+            <li><a ng-click="productFilter = {productCategory: 'Soaps/Scrubs'}">BODY</a></li>
+            <li><a href="/#/cart"><i class="material-icons bagIcon">shopping_basket</i></a></li>
+        </ul>
+    </div>
+</nav>
+<!-- Nav End -->
+<!-- Product Grid -->
+<div class="wrapper">
+    <div id="products" class="row">
+        <div product="product" ng-repeat="product in products | orderBy: 'dateCreated': true | filter: productFilter">
+            <ul class="grid size-style">
+                <li class="col s12 m6 l4" ng-repeat="colorSize in product.colorSize">
+                    <figure>
+                        <img href='#productModal' ng-src="{{ colorSize.mainImg }}" ng-click="passInProduct(product)" modal>
+                        <!--begin product modal-->
+                        <div id="productModal" class="modal">
+                            <div class="modal-content">
+                                <div class="product-photo-and-info">
+                                    <div class="product-photo-box">
+                                        <ul rn-carousel class="carousel" rn-carousel-index="index1" rn-carousel-buffered rn-carousel-controls>
+                                            <li ng-repeat="photo in selectedProduct.images" class="product-image">
+                                                <img class="carousel_img" ng-src="{{ photo }}" />
+                                            </li>
+                                        </ul>
+                                        <div class="test" rn-carousel-indicators ng-if="selectedProduct.images.length > 1" slides="selectedProduct.images" rn-carousel-index="index1">
+                                            <div class="rn-carousel-indicator">
+                                                <span ng-repeat="slide in slides" ng-class="{active: $index==index}" ng-click="goToSlide($index)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-object">
+                                            <div class="product-modal-title">{{selectedProduct.productTitle}}</div>
+                                            <div class="product-modal-price">
+                                                <div class="product-modal-keyword">PRICE</div>
+                                                <div class="product-modal-price-price">${{selectedProduct.price}}</div>
+                                            </div>
+                                            <div class="product-modal-description">
+                                                <div class="product-modal-keyword"></div>
+                                                <div>{{selectedProduct.productDescription}}</div>
+                                            </div>
+                                            <div class="onlyIfAllIsWell">
+                                                <!--angular dropdown with "select"-->
+                                                <div class="product-modal-color-dropdown">
+                                                    <div class="product-modal-keyword product-modal-color-keyword">COLOR</div>
+                                                    <select ng-change="selectColorSize(chosenColor)" ng-model="chosenColor" material-select watch>
+                                                        <option value="" disabled selected>Select color</option>
+                                                        <option value="{{colorOption}}" ng-repeat="colorOption in selectedProduct.colorSize">{{colorOption.color}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="product-modal-size-container" ng-if="!ifNot(selectedProduct) && !productModalNotAvailable(selectedProduct.colorSize)">
+                                                    <div class="product-modal-keyword product-modal-size-keyword"></div>
+                                                    <div class="product-modal-size-buttons" ng-model="size">
+                                                        <div class="product-modal-individual-size-button" ng-click="selectSize(sizes[0])" ng-if="selectedColorSize.smallQty">S</div>
+                                                        <div class="product-modal-individual-size-button" ng-click="selectSize(sizes[1])" ng-if="selectedColorSize.mediumQty">M</div>
+                                                        <div class="product-modal-individual-size-button" ng-click="selectSize(sizes[2])" ng-if="selectedColorSize.largeQty">L</div>
+                                                    </div>
+                                                  
+                                                    <div class="product-modal-add-to-bag modal-action modal-close" ng-click="goodToGo || addProductToCartFromModal(selectedProduct, selectedColorSize, theSize)" ng-disabled="goodToGo" ng-class="{'disabled': goodToGo }">
+                                                        <p class="Add2Bag">ADD TO BAG</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ifNotClothing" ng-if="ifNot(selectedProduct)">
+                                                <div class="product-modal-add-to-bag modal-action modal-close" ng-click="goodToGo || addProductToCart(selectedProduct, selectedColorSize, sizes[0])" ng-disabled="goodToGo" ng-class="{'disabled': goodToGo }">
+                                                    <p class="Add2Bag">ADD TO BAG</p>
+                                                </div>
+                                            </div>
+                                            <div class="ifWantList" ng-show="productModalNotAvailable(selectedProduct.colorSize)">
+                                                <span>SOLD OUT <strong>| WANT THIS BACK IN THE SHOP ?</strong> </span>
+                                                <form ng-show="thanks" ng-submit="findColorSizeIndex(selectedColorSize._id)">
+                                                    <input ng-model="emailList.wantEmail" type="email" placeholder=" Enter Email Here" />
+                                                </form>
+                                                <div ng-show="!thanks">
+                                                    <span><strong>Thanks! We will keep you in the loop.<strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end product modal -->
+                        <figcaption>
+                            <div class="add-size" ng-show="!anyAvailable(colorSize) && !ifNotClothing(product)">
+                                <p class="bag">ADD TO BAG</p>
+                                <span class="inStock" ng-show="inStock(colorSize.largeQty)" ng-click="addProductToCart(product, colorSize, sizes[2])" >L</span>
+                                <span class="outOfStock" ng-show="!inStock(colorSize.largeQty)">L</span>
+                                <span class="inStock" ng-show="inStock(colorSize.mediumQty)" ng-click="addProductToCart(product, colorSize, sizes[1])" >M</span>
+                                <span class="outOfStock" ng-show="!inStock(colorSize.mediumQty)">M</span>
+                                <span class="inStock" ng-show="inStock(colorSize.smallQty)" ng-click="addProductToCart(product, colorSize, sizes[0])" >S</span>
+                                <span class="outOfStock" ng-show="!inStock(colorSize.smallQty)">S</span>
+                            </div>
+                            <div class="soldOut" ng-show="anyAvailable(colorSize)">
+                                <span>SOLD OUT <strong> > WANT THIS BACK IN THE SHOP ?</strong> </span>
+                                <form ng-submit="findColorSizeIndex(colorSize._id)" toast="submit" message="THANKS! YOU'LL BE THE FIRST TO KNOW." duration="3000">
+                                    <input ng-model="emailList.wantEmail" type="email" placeholder="  ENTER EMAIL" />
+                                </form>
+                            </div>
+                            <div class="accessoriesAdd" ng-show="ifNotClothing(product)" ng-click="addProductToCart(product, colorSize, sizes[0])"> ADD TO BAG</div>
+                        </figcaption>
+                    </figure>
+                    <p class="product-title">{{product.productTitle}}<br>
+                    ${{ product.price }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Product Grid -->
+
+<!-- Start Shopping Bag Modal -->
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <div class="shopping-bag-title-container">
+            <div>SHOPPING BAG</div>
+        </div>
+        <div class="whole-cart">
+            <div class="each-product-container" ng-show="cart.length === 0">
+                <div class="emptyCartMsg">
+                    <div class="no-items-in-cart">NO ITEMS IN YOUR CART</div>
+                </div>
+            </div>
+            <div class="each-product-container" ng-repeat="product in cart">
+                <div class="interior-product-container">
+                    <div class="cart-pic-container">
+                        <img class="cart-pic" ng-src="{{product.imageUrl}}" />
+                    </div>
+                    <div class="product-name-and-info-box">
+                        <div class="product-name">{{product.name}}</div>
+                        <div class="product-info-box">
+                            <div class="individual-product-info-box size-container">
+                                <div class="product-category-name">SIZE</div>
+                                <div ng-show="!ifNotClothing(product)">{{product.size}}</div>
+                                <div ng-show="ifNotClothing(product)">
+                                    OS
+                                </div>
+                            </div>
+                            <div class="individual-product-info-box color-container">
+                                <div class="product-category-name">COLOR</div>
+                                <div>{{product.color}}</div>
+                            </div>
+                            <div class="individual-product-info-box price-container">
+                                <div class="product-category-name">PRICE</div>
+                                <div>${{product.price}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="individual-product-info-box remove-box">
+                        <div class="remove-product" ng-click="removeProductFromCart(product.refId)">
+                            <div>X</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-total">
+            <div class="total-price">
+                <h5>TOTAL: ${{total}}</h5></div>
+            <a ng-href="/#/checkout" class="checkout-button" onClick="$('#modal2').closeModal();">CHECKOUT</a>
+        </div>
+    </div>
+</div>
+<!-- End Shopping Bag Modal -->
+<!-- START FOOTER -->
+<footer class="page-footer">
+    <div class="foot">
+        <div class="row">
+            <div class="col l2 offset-l2 s12" id="contact">
+                <h6>CONTACT</h6>
+                <ul>
+                    <li><a href='#aboutModal' modal>ABOUT</a></li>
+                    <div id="aboutModal" class="modal">
+                        <div class="modal-content" class="row">
+                            <h5>ABOUT</h5>
+                            <hr>
+                            <img class="aboutImg" src="http://40.media.tumblr.com/056d433fec4dcd6b22d2fa02499a99ef/tumblr_inline_nqoqp4a7FV1tx6mj2_500.png">
+                            <p class="aboutDes">Hello!  This is where you can tell the world all about who you are and what you represent!!
+                            </p>
+                            <div class="aboutSocial">
+                                <span><a target="_blank" href="https://instagram.com"><i class="fa fa-instagram fa-2x"></i></a></span>
+                                <span><a target="_blank" href="https://www.pinterest.com/"><i class="fa fa-pinterest fa-2x"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <li><a href='#policiesModal' modal>SHOP POLICIES</a></li>
+                    <div id="policiesModal" class="modal">
+                        <div class="modal-content" class="row">
+                            <h5>SHOP POLICIES</h5>
+                            <hr>
+                            <div class="policies">
+                                <p class="Q">Customer Care Contact:</p>
+                                Here you can put in your own FAQ secion, in a classy Q/A format!
+                                <p class="Q"> Just how did you get to be so good looking?</p>
+                                Welll...I'll never tell!                   
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="foot">
+            © 2015 copyright text
+            <a class="right" href="/api/login">ADMIN LOGIN</a>
+        </div>
+    </div>
+</footer>
